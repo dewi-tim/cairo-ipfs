@@ -1,10 +1,8 @@
 # cairo-ipfs
 
-**TL;DR:** Commit to CIDs of IPFS DAG objects with a verified structure using Starknet
-
 ## Description
 
-Cairo-ipfs is a StarkNet contract which stores the IPFS CID of a DAG-CBOR object, and allows the user to continuously update the stored object such that a backlink to the previous state is preserved. This means that the stored CID is guaranteed to address an object, `root`, of the form:
+Cairo-ipfs is a StarkNet contract which stores the IPFS CID of an object, and allows the user to continuously update the stored object such that a backlink to the previous state is preserved. This means that the stored CID is guaranteed to address an object, `root`, of the form:
 
 ```dag-json
 {
@@ -60,8 +58,10 @@ $ nile deploy keccak_contract --alias keccak
 📦 Registering deployment as keccak in localhost.deployments.txt
 ```
 ```console
-$ nile deploy IPFS_updateable --alias IPFS 0x068a62ac303b1bf393602734ececa8a2aeb4f3d08db43f553f951b65952b5f
-35 14845624774935193025 14127552982796960201 6857829969316356434 1849024585897033403
+$ nile deploy IPFS_updateable --alias IPFS \
+   0x068a62ac303b1bf393602734ececa8a2aeb4f3d08db43f553f951b65952b5f35 \
+   14845624774935193025 14127552982796960201 \
+   6857829969316356434 1849024585897033403
 ```
 Step 6: Put new state on IPFS and get felts
 ```console
