@@ -72,7 +72,7 @@ $ cid2input bafyrwiem4rrwrdgvgmntooopkyweifa4epcyxalov7vl22wqn4ghox7d6e
 ```
 Step 7: Put updated root on IPFS
 ```json
-# updated_root.json
+// updated_root.json
 {
    "prev" : {"/" : "bafyrwigbexamue2ba3hmtai7hwlcmd6ekiqsduyf5avv7oz6ln3radvjde"},
    "state" : {"/" : "bafyrwiem4rrwrdgvgmntooopkyweifa4epcyxalov7vl22wqn4ghox7d6e"}
