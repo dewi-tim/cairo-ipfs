@@ -6,8 +6,8 @@ Update contract root with the keccak hash of DAG-CBOR object with links `state',
 root can always be turned into a valid cid w/ mc: dag-cbor, mh: keccak-256 256 root
 ```json
    {
-       "prev": {"/": <CIDv1><DAG-CBOR><Keccak-256><256><HASH>},
-       "state" : {"/": <CIDv1><DAG-CBOR><Keccak-256><256><HASH>}
+       "prev": {"/": "<CIDv1><DAG-CBOR><Keccak-256><256><HASH>"},
+       "state" : {"/": "<CIDv1><DAG-CBOR><Keccak-256><256><HASH>"}
    }
 ```
 (In future `state` can be arbitrary CID within size limit)
