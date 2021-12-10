@@ -16,8 +16,7 @@ def cid2input(cid_str):
     hash_bytes = cid.encode('identity')[-32:]
     return struct.unpack('<QQQQ',hash_bytes)
 
-def output2cid(output_str):
-    hash_ints = [int(x,0)for x in output_str.split()]
+def output2cid(hash_ints):
     hash_bytes = struct.pack("<QQQQ",*hash_ints)
-    return hash2cid(hash_bytes,'identity')
+    return hash2cid(hash_bytes)
 

@@ -1,14 +1,14 @@
-# Update contract root with the keccak hash of DAG-CBOR object with links `new_state',`old_root', where old_root is the current root of the contract
+# Update contract root with the keccak hash of DAG-CBOR object with links `state',`prev', where `prev` is the root of the contract at the time of calling and `state` is the IPFS CID of the new state
 #
-# root is can always be turned into a valid cid w/ mc: dag-cbor, mh: keccak-256 256 root
+# root can always be turned into a valid cid w/ mc: dag-cbor, mh: keccak-256 256 root
 #
 # root_json =
 #   {
-#       "new_state": {"/": <CIDv1><DAG-CBOR><Keccak-256><256><HASH>},
-#       "old_root" : {"/": <CIDv1><DAG-CBOR><Keccak-256><256><HASH>}
+#       "prev": {"/": <CIDv1><DAG-CBOR><Keccak-256><256><HASH>},
+#       "state" : {"/": <CIDv1><DAG-CBOR><Keccak-256><256><HASH>}
 #   }
 #
-# (In future "new_state" can be arbitrary CID within size limit)
+# (In future "state" can be arbitrary CID within size limit)
 #
 #          root2 --> []
 #                    /\
@@ -19,6 +19,8 @@
 #                /  \
 #               /    \
 # root0 --> [state0] state1
+
+
 # Imports
 %lang starknet
 %builtins pedersen range_check bitwise
@@ -26,6 +28,7 @@ from starkware.cairo.common.alloc import alloc
 from starkware.cairo.common.cairo_builtins import BitwiseBuiltin,HashBuiltin
 from starkware.cairo.common.bitwise import bitwise_xor,bitwise_and
 from starkware.cairo.common.registers import get_fp_and_pc
+
 # Constants
 ## Defines the fixed parts of the DAG-CBOR encoding of { prev:CID(000000000000000000000000000), state:CID(00000000000000000000000000000000)}
 const CBOR0 = 3087347722646217890 # b'\xa2dprev\xd8*'
@@ -43,7 +46,7 @@ const UPPER6B_MASK = 18446744073709486080
 const LOWER2B_MASK = 65535            
 const UPPER7B_MASK = 18446744073709551360
 const LOWER1B_MASK = 255
-
+## Flags
 const UPPER = 1
 const LOWER = 0
 
@@ -76,7 +79,7 @@ end
 func keccak_address() -> (address : felt):
 end
 # Constructor
-# # Takes as input the keccak-256 hash of DAG-CBOR encoded new state, encoded as 4 x 64bit LE words
+# # Takes as input the keccak-256 hash of DAG-CBOR encoded initial state, encoded as 4 x 64bit LE words
 @constructor
 func constructor{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}(
         address :felt,
@@ -87,6 +90,12 @@ func constructor{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_p
 end
 
 # External functions
+## Getter for stored root CID hash
+@external
+func get_root{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr}() -> (root: (felt,felt,felt,felt)):
+    let (root_hash) = root.read()
+    return (root_hash)
+end
 ## Takes as input the keccak-256 hash of DAG-CBOR encoded new state, encoded as 4 x 64bit LE words
 @external
 func update_root{syscall_ptr : felt*, pedersen_ptr : HashBuiltin*, range_check_ptr,bitwise_ptr : BitwiseBuiltin*}(
