@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+import sys
+from multihash import encode
+from cid import make_cid
+import struct
+
+def hash2cid(hash,*encode_params):
+    mh = encode(hash,'keccak-256')
+    cid = make_cid(1,'dag-cbor',mh)
+    return cid
+
+def output2cid(hash_ints):
+    hash_bytes = struct.pack("<QQQQ",*hash_ints)
+    return hash2cid(hash_bytes)
+
+output = sys.argv[1:5]
+if output[:1] == "0x":
+    hash_ints = [int(i,0) for i in output]
+else:
+    hash_ints = [int(i) for i in output]
+sys.stdout.buffer.write(output2cid(hash_ints).encode("base32")+b'\n')

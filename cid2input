@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+import sys
+import struct
+from cid import make_cid
+
+def cid2input(cid_str):
+    cid = make_cid(cid_str)
+    hash_bytes = cid.encode('identity')[-32:]
+    return struct.unpack('<QQQQ',hash_bytes)
+
+
+cid = sys.argv[1]
+print(*cid2input(cid))
