@@ -71,8 +71,8 @@ $ cid2input bafyrwiem4rrwrdgvgmntooopkyweifa4epcyxalov7vl22wqn4ghox7d6e
 1960145061859812492 2023317089821866295 13684943306873357603 17429879947768352874
 ```
 Step 7: Put updated root on IPFS
+`updated_root.json`
 ```json
-// updated_root.json
 {
    "prev" : {"/" : "bafyrwigbexamue2ba3hmtai7hwlcmd6ekiqsduyf5avv7oz6ln3radvjde"},
    "state" : {"/" : "bafyrwiem4rrwrdgvgmntooopkyweifa4epcyxalov7vl22wqn4ghox7d6e"}
