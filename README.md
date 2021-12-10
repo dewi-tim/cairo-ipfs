@@ -43,7 +43,7 @@ bafyrwigbexamue2ba3hmtai7hwlcmd6ekiqsduyf5avv7oz6ln3radvjde
 ```
 Step 3: Translate CID to felts (representing the keccak hash) 
 ```console
-$ cid2input bafyrwigbexamue2ba3hmtai7hwlcmd6ekiqsduyf5avv7oz6ln3radvjde
+$ ./cid2input bafyrwigbexamue2ba3hmtai7hwlcmd6ekiqsduyf5avv7oz6ln3radvjde
 14845624774935193025 14127552982796960201 6857829969316356434 1849024585897033403
 ```
 Step 4: Run your devnet node
@@ -67,7 +67,7 @@ Step 6: Put new state on IPFS and get felts
 ```console
 $ ipfs dag put --hash keccak-256 new_state.json
 bafyrwiem4rrwrdgvgmntooopkyweifa4epcyxalov7vl22wqn4ghox7d6e
-$ cid2input bafyrwiem4rrwrdgvgmntooopkyweifa4epcyxalov7vl22wqn4ghox7d6e
+$ ./cid2input bafyrwiem4rrwrdgvgmntooopkyweifa4epcyxalov7vl22wqn4ghox7d6e
 1960145061859812492 2023317089821866295 13684943306873357603 17429879947768352874
 ```
 Step 7: Put updated root on IPFS
@@ -90,7 +90,7 @@ $ nile call IPFS update_root 1960145061859812492 2023317089821866295 13684943306
 
 Step 9: Verify stored CID!
 ```console
-$ output2cid 0xe29cae260d1e6d6 0x3c5feaddabc4962d 0x2b72a37e43e08a9e 0x94f7c6783d40f7b6
+$ ./output2cid 0xe29cae260d1e6d6 0x3c5feaddabc4962d 0x2b72a37e43e08a9e 0x94f7c6783d40f7b6
 bafyrwigw43iwbywkfehc3fwevpo6uxz4t2foaq36unzcxnxxia6xrrxxsq
 $ ipfs dag get bafyrwigw43iwbywkfehc3fwevpo6uxz4t2foaq36unzcxnxxia6xrrxxsq/prev
 {"hello":"world"}
